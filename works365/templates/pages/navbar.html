@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}" />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' rel='stylesheet'>
+  <title>365 Works</title>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+    {% if user_profile %}
+      <!-- Navbar para usuário normal -->
+      <nav class="navbar">
+        <div class="container">
+          <img src="{% static 'img/logo.png' %}" alt="Logo">
+          <ul class="nav-links">
+            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+            <div class="vertical-line"></div>
+            <li><a href="{% url 'request_user_service' %}" class="{% if request.path == '/solicitar_servico_usuario/' %}active{% endif %}">Solicitar Serviço</a></li>
+            <div class="vertical-line"></div>
+            <li><a href="{% url 'view_user_service' %}" class="{% if request.path == '/visualizar_servico_usuario/' %}active{% endif %}">Visualizar Serviço</a></li>
+          </ul>
+          <div class="login" onclick="toggleMenu()">
+            <i class="fa-solid fa-circle-user"></i>
+          </div>
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <i class="fa-solid fa-circle-user"></i>
+                <h2>{{ user }}</h2>
+              </div>
+              <hr>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>Editar Perfil</p>
+                <span>></span>
+              </a>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-gear"></i>
+                <p>Configurações & Privacidade</p>
+                <span>></span>
+              </a>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-circle-question"></i>
+                <p>Ajuda & Suporte</p>
+                <span>></span>
+              </a>
+              <a href="{% url 'logout' %}?next={{request.path}}" id="sub-menu-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <p>Logout</p>
+                <span>></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% elif profissional_profile %}
+      <!-- Navbar para profissional -->
+      <nav class="navbar">
+        <div class="container">
+          <img src="{% static 'img/logo.png' %}" alt="Logo">
+          <ul class="nav-links">
+            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+            <div class="vertical-line"></div>
+            <li><a href="{% url 'view_profissional_service' %}" class="{% if request.path == '/visualizar_servico_profissional/' %}active{% endif %}">Visualizar Serviços</a></li>
+          </ul>
+          <div class="login" onclick="toggleMenu()">
+            <i class="fa-solid fa-circle-user"></i>
+          </div>
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <i class="fa-solid fa-circle-user"></i>
+                <h2>{{ user }}</h2>
+              </div>
+              <hr>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>Editar Perfil</p>
+                <span>></span>
+              </a>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-gear"></i>
+                <p>Configurações & Privacidade</p>
+                <span>></span>
+              </a>
+              <a href="#" id="sub-menu-link">
+                <i class="fa-solid fa-circle-question"></i>
+                <p>Ajuda & Suporte</p>
+                <span>></span>
+              </a>
+              <a href="{% url 'logout' %}?next={{request.path}}" id="sub-menu-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <p>Logout</p>
+                <span>></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% endif %}
+  {% else %}
+    <!-- Navbar para usuários não autenticados -->
+    <nav class="navbar">
+      <div class="container">
+        <img src="{% static 'img/logo.png' %}" alt="Logo">
+        <ul class="nav-links">
+          <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+          <div class="vertical-line"></div>
+          <li><a href="{% url 'register_usuario' %}" class="{% if request.path == '/register_usuario/' %}active{% endif %}">Preciso de um Serviço</a></li>
+          <div class="vertical-line"></div>
+          <li><a href="{% url 'register_profissional' %}" class="{% if request.path == '/register_profissional/' %}active{% endif %}">Sou Profissional</a></li>
+          <div class="vertical-line"></div>
+          <li><a href="{% url 'quem_somos' %}" class="{% if request.path == '/quem_somos/' %}active{% endif %}">Quem Somos Nós</a></li>
+        </ul>
+        <div class="login" onclick="toggleMenu()">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <div class="sub-menu-wrap" id="subMenu">
+          <div class="sub-menu">
+            <div class="user-info">
+              <i class="fa-solid fa-circle-user"></i>
+              <h2>Não está Conectado</h2>
+            </div>
+            <hr>
+            <a href="{% url 'login' %}" id="sub-menu-link">
+              <i class="fa-solid fa-circle-user"></i>
+              <p>Fazer Login</p>
+              <span>></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  {% endif %}
+
+  <script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+      subMenu.classList.toggle("open-menu")
+    }
+  </script>
+</body>
+
+
+</html>

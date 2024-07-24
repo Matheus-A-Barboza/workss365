@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/visualizar_servico_usuario.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Serviços Cadastrados</title>
+</head>
+
+<body>
+    {% include 'pages/navbar.html' %}
+
+    <div class="services-container">
+
+        <form action="{% url 'view_user_service' %}" method="GET">
+            <div class="filter">
+                <label for="categoria_filtro">Filtrar por Categoria:</label>
+                <select name="categoria_filtro" class="categoria_filtro">
+                    <option value="">Todas as Categorias</option>
+                    {% for categoria in categorias_disponiveis %}
+                    <option value="{{ categoria }}">{{ categoria }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        {% for servico in servicos %}
+            <div class="service-wrapper">
+                <div class="service-card">
+                    <h3>{{ servico.nome_servico }}</h3>
+                    <div><span>Endereço:</span> {{ servico.endereco }}</div>
+                    <div><span>Nome do Solicitante:</span> {{ servico.solicitante }}</div>
+                    <div><span>Descrição:</span> {{ servico.descricao }}</div>
+                    {% for categoria in servico.categorias.all %}
+                    <div><span>Categoria:</span> {{ categoria.nome }}</div>
+                    {% endfor %}
+                </div>
+
+                {% if servico.oferta %}
+                    <div class="offer">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <span>{{ request.session.profissional_nome }} | Oferta: $ {{ servico.oferta }}</span>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?phone=5548992139839"><button class="btn-accept">Aceitar
+                                Oferta</button></a>
+                    </div>
+                {% else %}
+                    <div class="no-offer">
+                        <span>Nenhuma oferta encontrada</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="horizontal-line"></div>
+        {% empty %}
+            <div class="no-service">
+                <span>Nenhum serviço encontrado</span>
+            </div>
+        {% endfor %}
+
+       
+
+    </div>
+
+    <footer>
+        <p>&copy; 365 WORKS</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --background-color: #f4f4f4;
+    --second-background-color: #ff7113;
+    --third-background-color: #ebebeb;
+    --text-color: #fff;
+    --second-text-color: #000;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background: var(--background-color);
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 60%;
+    padding: 2rem;
+    margin-top: 15rem;
+    background: var(--text-color);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap: 20px;
+}
+
+.main-container h1 {
+    position: absolute;
+    top: 9rem;
+    font-size: 2.8rem;
+}
+
+.main-container .card {
+    background: var(--second-background-color);
+    width: 35%;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    color: var(--text-color);
+}
+
+.main-container .card h3 {
+    text-align: center;
+    font-size: 16px;
+}
+
+.main-container .card p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.main-container .card .card-box {
+    background: var(--text-color);
+    color: var(--second-text-color);
+    padding: 5px;
+    border-radius: 3px;
+    margin: 6px 0;
+}
+
+
+.main-container .card .card-box.offer {
+    background: var(--text-color);
+    width: 80%;
+    color: var(--second-text-color);
+    padding: 5px;
+    margin: 0 auto;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 1s;
+}
+
+.main-container .card .card-box.offer:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.main-container .card .card-box form {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+.main-container .card .card-box span {
+    font-weight: 500;
+}
+
+.main-container .card .card-box.offer input {
+    width: 50%;
+
+    background: transparent;
+    outline: none;
+    border: none;
+    border: .2rem solid var(--second-text-color) ;
+    border-radius: 5px;
+}
+
+.main-container .card .card-box.offer input::placeholder {
+    color: var(--second-text-color);
+    padding: 3px;
+    text-align: center;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+.main-container .card .card-box.offer button {
+    border: 0;
+    cursor: pointer;
+    transition: color 1s;
+    background: transparent;
+}
+
+.main-container .card .card-box.offer button:hover {
+    transform: rotate(360deg);
+    color: var(--second-background-color);
+    transition: 1.5s;
+
+}
+
+.main-container .card .card-box form button {
+
+    font-size: 1.8rem;
+
+
+}
+
+.main-container .card .card-box form span {
+    margin-left: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.main-container .card .offer img {
+    width: 20px;
+    height: 20px;
+}
+
+footer {
+    font-size: 1.5rem;
+    background: #ff7113;
+    color: #fff;
+    margin-top: auto;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+
+    bottom:0;
+    left:0;
+}

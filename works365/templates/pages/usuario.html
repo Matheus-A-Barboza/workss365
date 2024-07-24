@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/usuario.css' %}" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>365 Works - Cadastro</title>
+</head>
+
+<body>
+  {% include 'pages/navbar.html' %}
+
+  <div class="wrapper">
+    <form action="{% url 'register_usuario' %}" method="post"> {% csrf_token %}
+      <h1>Cadastro do<span class="cor-text"> Usuário</span></h1>
+
+      <div class="input-box">
+        <input type="text" name="username" required>
+        <label for="">Usuário</label>
+        <i class='bx bxs-user'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="email" name="email" required>
+        <label for="">Email</label>
+        <i class='bx bxs-envelope'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="text" name="telefone" id="telefone" pattern="\([0-9]{2}\) [0-9]{5} [0-9]{4}" required maxlength="15">
+        <label for="telefone">Telefone</label>
+        <i class='bx bxs-phone'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="password" name="senha" required>
+        <label for="">Senha</label>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="password" name="confirmar_senha" required>
+        <label for="">Confirme a Senha</label>
+      </div>
+
+      <div class="input-login">
+        <p>Já tenho Cadastro!</p><a href="{% url 'login' %}"> Fazer Login</a>
+      </div>
+
+      <button type="submit" class="btn">Cadastrar</button>
+
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+    </form>
+  </div>
+
+  {% include 'pages/footer.html' %}
+
+  <script>
+    // Função para formatar o número de telefone
+    function formatarTelefone(telefone) {
+      // Remove tudo que não é número
+      telefone = telefone.replace(/\D/g, '');
+
+      // Formatação: (99) 99999 9999
+      telefone = telefone.replace(/^(\d{2})(\d)/g, '($1) $2');
+      telefone = telefone.replace(/(\d{5})(\d)/, '$1 $2');
+
+      // Insere o valor formatado de volta no campo
+      document.getElementById('telefone').value = telefone;
+    }
+
+    // Adiciona um listener para formatar enquanto o usuário digita
+    document.getElementById('telefone').addEventListener('input', function (event) {
+      formatarTelefone(event.target.value);
+    });
+  </script>
+
+</body>
+
+</html>

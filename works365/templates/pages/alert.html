@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/alert.css' %}" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+    
+    <title>365 Works - Cadastro</title>
+</head>
+
+<body>
+
+    {% if messages %}
+    <div class="alert hide">
+        <i class='bx bxs-error-alt'></i>
+        {% for message in messages %}
+        <span class="msg">Atenção: {{ message }}</span>
+        {% endfor %}
+        <div class="close-btn">
+            <i class='bx bx-x'></i>
+        </div>
+        <div class="progress"></div>
+    </div>
+    {% endif %}
+
+    <script>
+        $('button').click(function () {
+            $('.alert').removeClass("hide");
+            $('.alert').addClass("show");
+            $('.alert').addClass("showAlert");
+            $('.progress').addClass("active");
+            setTimeout(function () {
+                $('.alert').addClass("hide");
+                $('.alert').removeClass("show");
+            }, 5000);
+        });
+        $('.close-btn').click(function () {
+            $('.alert').addClass("hide");
+            $('.alert').removeClass("show");
+        });
+    </script>
+
+</body>
+
+</html>

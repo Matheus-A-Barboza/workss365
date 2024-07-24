@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/servico_usuario.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>365 Works</title>
+</head>
+
+<body>
+    {% include 'pages/navbar.html' %}
+
+    <div class="wrapper">
+        <form action="{% url 'request_user_service' %}" method="POST"> {% csrf_token %}
+            <h1>Solicitar Serviço</h1>
+
+            <div class="input-box">
+                <input type="text" name="nome_servico" required>
+                <label for="">Nome do Serviço</label>
+                <i class="fa-solid fa-dolly"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="endereco" required>
+                <label for="">Endereço</label>
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="solicitante" value="{{request.user}}" required>
+                <label for="">Nome do Solicitante</label>
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="descricao" required>
+                <label for="">Descrição</label>
+                <i class="fa-solid fa-address-card"></i>
+            </div>
+
+            <div class="input-box">
+                <label for="">Categorias</label>
+                <select class="categoria" name="categorias">
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria }}">{{ categoria }}</option>
+                    {% endfor %}
+                </select>
+                <i class="fa-solid fa-list"></i>
+            </div>
+
+            <button type="submit" class="btn">Solicitar</button>
+        </form>
+
+    </div>
+
+    {% include 'pages/footer.html' %}
+</body>
+
+</html>
